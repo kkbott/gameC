@@ -71,7 +71,7 @@ production/tasks/T-002.md      ← Sprint 01 的 T2
 | 任务 | 内容 | 状态 |
 | --- | --- | --- |
 | [T-001](T-001.md) | 建 Unity 工程 + Sim/View 分层 | 待发布 |
-| T-002 | CJK 字体验证（**最高风险**） | 未创建 |
+| [T-002](T-002.md) | CJK 字体验证（**最高风险**） | 待发布 |
 | T-003 | Addressables 2.x 验证 | 未创建 |
 | T-004 | Steamworks 绑定验证 | 未创建 |
 | T-005 | `FarmState` + `ICommand` 骨架 | 未创建 |
