@@ -1,0 +1,35 @@
+{
+  "_meta": {
+    "version": 1,
+    "note": "部件登记表。glyphId 为整数主键，用于构造无序键 (a,b)。targets 列出该部件能参与组成的字 id，是 C2 可达性发牌的唯一依据。rarity: 3=高频 2=中频 1=低频。",
+    "validated": "2026-11-17 / 26 个部件 / 每个部件 targets >= 2（无死部件）"
+  },
+  "components": [
+    { "glyphId": 1,  "glyph": "田", "rarity": 3, "family": "soil",     "targets": ["guo3", "li3_2", "nan2"] },
+    { "glyphId": 2,  "glyph": "火", "rarity": 3, "family": "fire",     "targets": ["qiu1", "yan2", "can4"] },
+    { "glyphId": 3,  "glyph": "木", "rarity": 3, "family": "wood",     "targets": ["guo3", "xing4", "cun1", "li3", "bai3", "lin2", "du4", "gan1", "mu4", "xiu1", "xiang1_2", "quan2"] },
+    { "glyphId": 4,  "glyph": "日", "rarity": 3, "family": "sun",      "targets": ["chang1", "xiang1", "wang4", "xing1", "han4", "zao3", "ming2"] },
+    { "glyphId": 5,  "glyph": "人", "rarity": 3, "family": "person",   "targets": ["xiu1", "zai3", "xian1", "qiu2"] },
+    { "glyphId": 6,  "glyph": "土", "rarity": 3, "family": "soil",     "targets": ["li3_2", "du4"] },
+    { "glyphId": 7,  "glyph": "十", "rarity": 3, "family": "misc",     "targets": ["zhi1", "zao3"] },
+    { "glyphId": 8,  "glyph": "禾", "rarity": 2, "family": "grain",    "targets": ["qiu1", "xiang1", "ji4"] },
+    { "glyphId": 9,  "glyph": "艹", "rarity": 2, "family": "plant",    "targets": ["miao2", "xin1"] },
+    { "glyphId": 10, "glyph": "氵", "rarity": 2, "family": "water",    "targets": ["jiang1", "bo2", "mu4", "qin4", "zhi1", "lei4", "han4_2", "ru3", "wang1"] },
+    { "glyphId": 11, "glyph": "月", "rarity": 2, "family": "moon",     "targets": ["ming2", "peng2", "sheng4"] },
+    { "glyphId": 12, "glyph": "力", "rarity": 2, "family": "force",    "targets": ["nan2", "gong1", "jia1"] },
+    { "glyphId": 13, "glyph": "子", "rarity": 2, "family": "child",    "targets": ["li3", "hao3", "zai3", "zi4", "ji4"] },
+    { "glyphId": 14, "glyph": "女", "rarity": 2, "family": "woman",    "targets": ["an1", "hao3", "ru2", "wei3", "ru3"] },
+    { "glyphId": 15, "glyph": "口", "rarity": 2, "family": "mouth",    "targets": ["xing4", "ru2", "jia1", "qiu2"] },
+    { "glyphId": 16, "glyph": "心", "rarity": 2, "family": "heart",    "targets": ["qin4", "si1", "xin1"] },
+    { "glyphId": 17, "glyph": "目", "rarity": 1, "family": "eye",      "targets": ["lei4", "xiang1_2"] },
+    { "glyphId": 18, "glyph": "白", "rarity": 1, "family": "white",    "targets": ["bai3", "bo2"] },
+    { "glyphId": 19, "glyph": "工", "rarity": 1, "family": "craft",    "targets": ["jiang1", "gong1"] },
+    { "glyphId": 20, "glyph": "山", "rarity": 1, "family": "mountain", "targets": ["can4", "xian1"] },
+    { "glyphId": 21, "glyph": "宀", "rarity": 1, "family": "roof",     "targets": ["an1", "zi4"] },
+    { "glyphId": 22, "glyph": "干", "rarity": 1, "family": "branch",   "targets": ["gan1", "han4", "han4_2"] },
+    { "glyphId": 23, "glyph": "又", "rarity": 1, "family": "again",    "targets": ["shuang1", "quan2", "dui4"] },
+    { "glyphId": 24, "glyph": "寸", "rarity": 1, "family": "measure",  "targets": ["cun1", "dui4"] },
+    { "glyphId": 25, "glyph": "生", "rarity": 1, "family": "life",     "targets": ["xing1", "sheng4"] },
+    { "glyphId": 26, "glyph": "王", "rarity": 1, "family": "king",     "targets": ["wang4", "wang1"] }
+  ]
+}
