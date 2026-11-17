@@ -11,7 +11,7 @@ public sealed class DataPipelineTests
     [Test]
     public void RealDataFiles_ParseInto50CharsAnd26Components()
     {
-        string root = FindRepositoryRoot();
+        string root = RepositoryPaths.FindRoot();
         string charTableJson = File.ReadAllText(Path.Combine(root, "Client", "Data", "char-table.json"));
         string componentJson = File.ReadAllText(Path.Combine(root, "Client", "Data", "component-registry.json"));
 
@@ -58,21 +58,5 @@ public sealed class DataPipelineTests
         const string json = "{ \"chars\": [ }";
 
         Assert.Throws<InvalidDataException>(() => CharTableLoader.LoadChars(json));
-    }
-
-    private static string FindRepositoryRoot()
-    {
-        DirectoryInfo? directory = new(AppContext.BaseDirectory);
-        while (directory is not null)
-        {
-            if (File.Exists(Path.Combine(directory.FullName, "TianziGe.Tools.sln")))
-            {
-                return directory.FullName;
-            }
-
-            directory = directory.Parent;
-        }
-
-        throw new DirectoryNotFoundException("找不到仓库根（TianziGe.Tools.sln）。");
     }
 }
