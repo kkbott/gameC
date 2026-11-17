@@ -11,7 +11,7 @@
 
 ## 概述
 
-M4 是一个**不打开 Unity 就能跑完一局**的命令行工具：喂它初始状态和种子，它用几种"脚本玩家"策略把整局跑完，输出一张指标表。
+M4 是一个**不打开 Godot 就能跑完一局**的命令行工具：喂它初始状态和种子，它用几种"脚本玩家"策略把整局跑完，输出一张指标表。
 
 它是这个项目**最重要的工具**，原因有二：
 
@@ -34,13 +34,13 @@ M4 是一个**不打开 Unity 就能跑完一局**的命令行工具：喂它初
 
 ```
 /Balance/
-  Balance.csproj            → 引用 TianziGe.Sim（纯 C#，无 UnityEngine）
+  Balance.csproj            → 引用 TianziGe.Sim（纯 C#，无 Godot）
   Program.cs                → CLI 入口
   Strategies/               → 脚本玩家策略
   Reports/                  → 输出 CSV + Markdown
 ```
 
-- **不得引用 Unity 程序集**。这本身就是架构约束的持续验证：一旦有人把引擎依赖漏进 Sim 层，这个项目立刻编译失败。
+- **不得引用 Godot 程序集**。这本身就是架构约束的持续验证：一旦有人把引擎依赖漏进 Sim 层，这个项目立刻编译失败。
 
 **R2 · 三种脚本玩家策略（核心）**
 
@@ -113,7 +113,7 @@ M4 自身无状态。每次运行：构建初始 `FarmState` → 循环 `RoundSt
 | --- | --- | --- | --- |
 | F2 步进 | 上游 | `Execute` + `ReplayHash` | F2 拥有 |
 | F3 状态层 | 上游 | 构造与读取 `FarmState` | F3 拥有 |
-| F1 字表 | 上游 | 读 JSON（不经 Unity） | F1 拥有 |
+| F1 字表 | 上游 | 读 JSON（不经引擎） | F1 拥有 |
 | 全部玩法系统 | 上游 | 通过命令驱动，不自建捷径 | 各系统拥有规则 |
 | CI | 下游 | 作为门禁任务 | — |
 
@@ -145,7 +145,7 @@ depth_gap       = hold_rate(勤奋) − hold_rate(偷懒)
 | E1 | 策略在无合法命令时陷入死循环 | 强制 `EndRoundEarly`，并记录"策略卡死"计数（这个数字本身是设计信号） |
 | E2 | 字表 JSON 缺失/非法 | 直接报错退出，不静默跑空表 |
 | E3 | 同一 seed 两次运行 hash 不同 | **视为严重缺陷**（有静态随机源或哈希不稳定），CI 直接红 |
-| E4 | 工具引用了 Unity 程序集 | 编译期拦截（csproj 不引用），这是架构守卫 |
+| E4 | 工具引用了 Godot 程序集 | 编译期拦截（csproj 不引用），这是架构守卫 |
 | E5 | 100 局里出现 1 局异常崩溃 | 输出该局的完整命令日志到 `crash/`，便于逐条重放 |
 
 ---
@@ -182,8 +182,8 @@ depth_gap       = hold_rate(勤奋) − hold_rate(偷懒)
 
 ## 验收标准
 
-- [ ] **A1** 不启动 Unity 可编译并运行（`dotnet run`）
-- [ ] **A2** csproj 不引用任何 Unity 程序集（架构守卫）
+- [ ] **A1** 不启动 Godot 可编译并运行（`dotnet run`）
+- [ ] **A2** csproj 不引用任何 Godot 程序集（架构守卫）
 - [ ] **A3** 同 `(seed, strategy, charTable)` 的 `final_hash` 两次运行完全一致（E3）
 - [ ] **A4** 三种策略的 `hold_rate` 差距满足 R6 的门槛
 - [ ] **A5** 100 局运行 < 10 s（含 IO）
@@ -208,4 +208,5 @@ depth_gap       = hold_rate(勤奋) − hold_rate(偷懒)
 
 | 日期 | 变更 | 依据 |
 | --- | --- | --- |
-| 2026-11-17 | 创建：三策略对照、平衡门槛表（含"深度差值 ≥30 点"）、同种子 hash 复现、不引用 Unity 作为架构守卫 | `deterministic-step.md` / `farm-state.md` / `game-concept.md` §5.4 |
+| 2026-11-17 | 创建：三策略对照、平衡门槛表（含"深度差值 ≥30 点"）、同种子 hash 复现、不引用引擎作为架构守卫 | `deterministic-step.md` / `farm-state.md` / `game-concept.md` §5.4 |
+| 2026-11-17 | 引擎切换为 Godot 4.7.2（ADR-004）：M4 仍为纯 .NET 控制台，不引用 Godot；目录保持 `Balance/` | `docs/architecture/004-godot-engine-stack.md` |

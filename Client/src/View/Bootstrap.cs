@@ -1,0 +1,45 @@
+using Godot;
+using TianziGe.Sim;
+
+namespace TianziGe.View;
+
+/// <summary>
+/// T-001 的启动探针：证明 Godot View 程序集能引用 TianziGe.Sim，
+/// 并且规则层可以在不涉及场景 / 渲染状态的情况下被驱动。
+/// 真正的游戏入口在后续任务里替换。
+/// </summary>
+public partial class Bootstrap : Node
+{
+    public override void _Ready()
+    {
+        var state = new FarmState();
+        var context = new StepContext(new DeterministicRng(1));
+        var command = new BootProbeCommand();
+
+        var rejection = command.Validate(state, context);
+        if (rejection is not null)
+        {
+            GD.PushError($"Boot probe rejected: {rejection.Value.Code}");
+            GetTree().Quit(1);
+            return;
+        }
+
+        command.Apply(state, context);
+        GD.Print($"TianziGe boot OK: sim={typeof(FarmState).Assembly.GetName().Name} money={state.Money}");
+
+        if (System.Array.IndexOf(OS.GetCmdlineUserArgs(), "--boot-probe") >= 0)
+        {
+            GetTree().Quit(0);
+        }
+    }
+
+    private sealed class BootProbeCommand : ICommand
+    {
+        public Rejection? Validate(FarmState state, StepContext context) => null;
+
+        public void Apply(FarmState state, StepContext context)
+        {
+            state.Money += 3;
+        }
+    }
+}

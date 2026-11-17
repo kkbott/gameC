@@ -1,0 +1,17 @@
+<Project Sdk="Godot.NET.Sdk/4.7.2">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>12</LangVersion>
+    <Nullable>enable</Nullable>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <RootNamespace>TianziGe.View</RootNamespace>
+    <AssemblyName>TianziGe.View</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- View 单向引用 Sim；Sim 不引用 Godot。 -->
+    <ProjectReference Include="..\Sim\TianziGe.Sim.csproj" />
+  </ItemGroup>
+
+</Project>

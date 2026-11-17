@@ -81,7 +81,7 @@ public interface IInputModel
 }
 ```
 
-- 用 Unity Input System 的 `InputAction`，不直接读 `Input.GetKey`。
+- 用 Godot `InputMap` 动作 + `InputEvent`，不直接读按键扫描码 / 硬编码设备键位。
 - **手柄与键鼠可热插拔**：最后一个有输入的设备决定 UI 提示图标。
 
 **R6 · 预览的可见性（严格受 C3 R6 约束）**
