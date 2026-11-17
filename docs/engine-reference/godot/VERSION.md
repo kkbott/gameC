@@ -92,15 +92,18 @@ Godot 的 C# 工程由 `Godot.NET.Sdk` 构建；`Client/` 内的生成物 `.godo
 - [x] `godot --headless --path Client -- --boot-probe` 能启动项目并执行 C# 脚本
 - [x] Sim 的 `dotnet test` 完全不依赖 Godot
 - [x] `Client/` 工程可由 `dotnet build` 与 Godot `--build-solutions` 构建（两者均实测通过）
+- [x] CJK 动态字形：50 字 @16/32/120px 无缺字；图集合计 5.75 MiB（T-002，2026-11-17）
+- [x] 竖排：`TextServer.Orientation.Vertical` 原生可用，标点右上（T-002）
+- [x] 数据进包：macOS `.app` 与 Windows PCK 内均读到 `res://Data/*.json`，50 / 26（T-003，2026-11-18）
+- [x] Steam flat API：编辑器与 macOS 导出构建内初始化 + 成就 false→true（T-004，公共测试 AppID）
 
 ### 未验证（按任务验证，不要凭记忆断言）
 
 | 项 | 为什么重要 | 验证任务 |
 | --- | --- | --- |
-| CJK 动态字形 / 字体图集行为 | 整个 UI 层的前提 | **T-002（最高风险）** |
-| 竖排（vertical layout） | 农书 / 字条 | T-002 |
-| 导出产物是否包含 `res://Data/*.json` | 打包后字表能否读取 | T-003 |
-| Steam 集成方案（GodotSteam / Steamworks.NET） | 上架必需 | T-004 |
+| Windows 导出构建实机运行 | 发布前提 | T-003 后续（当前只在 macOS 验证 PCK） |
+| 产品 Steam AppID / Windows Steam 链 | 上架必需 | T-004 后续 |
+| macOS 正式签名 / notarization | 上架必需 | 上架阶段 |
 | 2D 水墨 shader 在目标 GPU 上的表现 | 视觉方向 | P5 / 纵向切片 |
 | Windows x64 导出模板 | 发布 | 原型后 |
 

@@ -1,5 +1,6 @@
 using Godot;
 using TianziGe.Sim;
+using TianziGe.View.FontTest;
 
 namespace TianziGe.View;
 
@@ -12,6 +13,28 @@ public partial class Bootstrap : Node
 {
     public override void _Ready()
     {
+        string[] userArgs = OS.GetCmdlineUserArgs();
+        if (System.Array.IndexOf(userArgs, "--steam-probe") >= 0)
+        {
+            GetTree().Quit(SteamTest.SteamProbe.Run());
+            return;
+        }
+
+        if (System.Array.IndexOf(userArgs, "--data-probe") >= 0)
+        {
+            GetTree().Quit(DataProbe.Run());
+            return;
+        }
+
+        if (System.Array.IndexOf(userArgs, "--font-probe") >= 0)
+        {
+            GetNode<Label>("BootLabel").Hide();
+            var probe = new FontProbe();
+            AddChild(probe);
+            probe.SetAnchorsAndOffsetsPreset(Control.LayoutPreset.FullRect);
+            return;
+        }
+
         var state = new FarmState();
         var context = new StepContext(new DeterministicRng(1));
         var command = new BootProbeCommand();
