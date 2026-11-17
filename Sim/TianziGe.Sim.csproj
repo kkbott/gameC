@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>12</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>TianziGe.Sim</RootNamespace>
+    <AssemblyName>TianziGe.Sim</AssemblyName>
+    <IsPackable>false</IsPackable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <!--
+    铁律 1：Sim 是纯 .NET 类库，不引用 Godot / 任何引擎程序集。
+    本 csproj 只有 BCL 依赖；若将来需要包，先确认它不把引擎依赖带进来。
+  -->
+
+</Project>

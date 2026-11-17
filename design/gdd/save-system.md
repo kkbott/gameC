@@ -48,7 +48,7 @@ F4 把 `FarmState` 序列化成一坨 JSON，再原样读回来。听起来简�
 | 整个 `FarmState`（含 `RngState`、`DrawPile`、`Codex`、`Plots`、`Village`、`QiOfSui`） | `CharDef` 字表内容（只存 `charTableVersion` 做校验） |
 | `SaveVersion`、`charTableVersion`、`gameVersion` | 相机、音量、键位（属 M1 设置，另一文件） |
 | `ReplayHash`（季末快照，用于完整性校验） | 命令日志（发行版默认不存，见 F2 Q1） |
-| 存档时间戳、季/回合序号（供 UI 展示） | 任何表现层状态、任何 Unity 对象引用 |
+| 存档时间戳、季/回合序号（供 UI 展示） | 任何表现层状态、任何引擎对象引用 |
 
 **R3 · 原子写入（防中断损坏）**
 

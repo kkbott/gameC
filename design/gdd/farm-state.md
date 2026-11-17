@@ -11,7 +11,7 @@
 
 ## 概述
 
-F3 是**整个游戏的唯一可变真相**：一个不继承 `MonoBehaviour`、不引用 `UnityEngine` 的纯 C# 状态容器。田块、字、祟气、村民、字谱、铜钱、RNG 状态、季相——全部住在这里。
+F3 是**整个游戏的唯一可变真相**：一个不继承 Godot `Node`、不引用 Godot 的纯 C# 状态容器。田块、字、祟气、村民、字谱、铜钱、RNG 状态、季相——全部住在这里。
 
 它同时是**存档内容**和（将来的）**联机房间状态**：序列化它就是存档，克隆它就是房间。所有玩法子系统都只是在它身上工作的纯函数模块，谁都不许持有自己的状态副本。
 
@@ -41,7 +41,7 @@ F3 是**整个游戏的唯一可变真相**：一个不继承 `MonoBehaviour`、
 
 **R2 · 纯数据，零引擎依赖**
 
-`TianziGe.Sim` 程序集内：**不出现 `using UnityEngine`**。允许的类型仅限于 BCL（`int`、`string`、`List<T>`、`Dictionary<K,V>`、`record`、`enum`）。
+`TianziGe.Sim` 程序集内：**不出现 `using Godot`，不引用 GodotSharp**。允许的类型仅限于 BCL（`int`、`string`、`List<T>`、`Dictionary<K,V>`、`record`、`enum`）。
 
 **R3 · 无单玩家假设（为联机留口）**
 
@@ -246,7 +246,7 @@ G2 村民系统排在 Alpha，但 C7 祟夜的防力公式需要村民数。**MV
 
 ## 验收标准
 
-- [ ] **A1** 静态检查：`TianziGe.Sim` 内 0 处 `using UnityEngine`；0 处 `MonoBehaviour`；0 处静态可变字段
+- [ ] **A1** 静态检查：`TianziGe.Sim` 内 0 处 `using Godot`；0 处 Godot 程序集引用；0 处静态可变字段
 - [ ] **A2** 不启动渲染，构造 `FarmState` + 命令序列，跑完整一整季（6–8 回合 + 祟夜）成功
 - [ ] **A3** 序列化往返：`Deserialize(Serialize(s))` 后 `hash(s) == hash(s')`
 - [ ] **A4** 克隆隔离：`Clone(s)` 后修改克隆，原状态 hash 不变

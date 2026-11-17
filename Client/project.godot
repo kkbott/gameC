@@ -1,0 +1,26 @@
+; Engine configuration file.
+; 田字格 · Tianzi Ge — Godot 4.7.2 (.NET)
+; 只放引擎 / 项目级配置；玩法数据与规则不在这里。
+
+config_version=5
+
+[application]
+
+config/name="TianziGe"
+config/description="汉字合字驱动的江南水乡经营游戏。"
+run/main_scene="res://scenes/Main.tscn"
+config/features=PackedStringArray("4.7", "C#", "Forward Plus")
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/stretch/mode="canvas_items"
+
+[dotnet]
+
+project/assembly_name="TianziGe.View"
+
+[rendering]
+
+renderer/rendering_method="forward_plus"

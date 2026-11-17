@@ -83,7 +83,7 @@ public sealed class DeterministicRng
 ```
 
 - 全部随机（发牌、字灵台词选取、祟的路径选择）**只能**从这里取。
-- **禁止** `UnityEngine.Random`、`System.Random`、`Guid.NewGuid`、时间戳参与任何判定。
+- **禁止** `GD.Randi` / `RandomNumberGenerator`、`System.Random`、`Guid.NewGuid`、时间戳参与任何判定。
 - RNG 状态属于 `FarmState`，随存档走。
 
 **R5 · 结算顺序固定**
@@ -221,7 +221,7 @@ canonicalJson = 键按字典序、数字用整数或定点字符串、枚举用�
 
 ## 验收标准
 
-- [ ] **A1** 静态检查：`TianziGe.Sim` 程序集内 **0 处** `using UnityEngine`；`dotnet` 编译通过
+- [ ] **A1** 静态检查：`TianziGe.Sim` 程序集内 **0 处** `using Godot`；`dotnet test` 编译并通过
 - [ ] **A2** 同一初始状态 + 同一命令序列，跑两次 `ReplayHash` 相同
 - [ ] **A3** 同一初始状态 + 同一种子，发牌 1000 次序列完全一致（跨平台 CI 验证）
 - [ ] **A4** `Validate` 无副作用：调用 1000 次后状态 hash 不变

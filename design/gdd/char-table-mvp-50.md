@@ -1,7 +1,7 @@
 # MVP 字表白名单 · 50 条
 
 > **状态**: 已落地数据 · 待试玩验证
-> **数据文件**: [`Data/char-table.json`](../../Data/char-table.json)、[`Data/component-registry.json`](../../Data/component-registry.json)
+> **数据文件**: [`Client/Data/char-table.json`](../../Client/Data/char-table.json)、[`Client/Data/component-registry.json`](../../Client/Data/component-registry.json)
 > **依据**: F1 字表 GDD v0.2（R7 选字原则、R8 主导属性制）
 > **最后更新**: 2026-11-17
 

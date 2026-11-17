@@ -14,7 +14,7 @@
 
 它是所有玩法系统的上游——合字校验查它，字效派发读它，偏旁发牌按它反推，平衡工具直接跑它。**没有字表就没有游戏**；字表改一个字段，六个下游系统跟着返工。所以它是本项目最大的瓶颈系统，也是最先要定死的东西。
 
-**数据形态**：JSON 为源，ScriptableObject 仅为运行时包装。原因见 §6.1。
+**数据形态**：JSON 为源，Sim 直接解析，引擎资源不参与玩法数据。原因见 §6.1。
 
 ---
 
@@ -189,7 +189,7 @@
 | C2 偏旁池 | 下游 | 读 `componentRegistry.targets` 做可达性发牌 | 本系统提供 targets 与 `glyphId` |
 | C4 字效 | 下游 | 读 `category`（主导属性）+ `template` + `tier` 派发效果 | 本系统只声明模板，不实现效果 |
 | F3 状态层 | 下游 | 字表**不进存档**；存档只存 `id` 列表 | 本系统只读 |
-| M4 平衡工具 | 下游 | 直接读 JSON，不经 Unity | 本系统必须保持纯数据 |
+| M4 平衡工具 | 下游 | 直接读 JSON，不经引擎 | 本系统必须保持纯数据 |
 | P3 农书 UI | 下游 | 读 `flavor` / `desc` / `char` | 本系统提供文案字段 |
 | C7 祟夜 | 下游 | 读推导出的 `battleWill_eff` 汇总防力 `D`；**不提供** `seasonCoef` | 公式在 C7，本系统只给单字战意 |
 
@@ -284,11 +284,11 @@ D = (Σ battleWill_eff) × (1 + 0.1 × (村民数 − 5)) × seasonCoef
 
 ### 6.1 为什么必须是 JSON 源（架构约束）
 
-`M4 平衡回归工具` 需要**脱离 Unity** 批量跑季（§5.4 第 1 条的验收方式）。`.asset` 文件依赖 Unity 序列化，Unity 之外读不了。因此：
+`M4 平衡回归工具` 需要**脱离引擎**批量跑季（§5.4 第 1 条的验收方式）。引擎序列化资源（Unity 的 `.asset` / Godot 的 `.tres`）在引擎之外读不了。因此：
 
-- **源文件**：`Data/char-table.json` + `Data/component-registry.json`（纯文本、可 diff、可脚本校验）
-- **运行时**：`CharTableSO`（ScriptableObject）在 Editor 导入时读取 JSON 并包装为只读字典
-- **禁止**：在 SO 里手改数值（会被下次导入覆盖），改数只改 JSON
+- **源文件**：`Client/Data/char-table.json` + `Client/Data/component-registry.json`（纯文本、可 diff、可脚本校验）
+- **运行时**：`TianziGe.Sim` 用 `System.Text.Json` 直接解析成只读字典；View 只负责用 `FileAccess` 把 `res://Data` 的文本交给 Sim
+- **禁止**：在 `.tres` / `.res` 里手改数值；改数只改 JSON。导出时须确认 JSON 进包（T-003）
 
 ### 6.2 上下游
 
@@ -341,7 +341,7 @@ D = (Σ battleWill_eff) × (1 + 0.1 × (村民数 − 5)) × seasonCoef
 
 ## 验收标准
 
-**数据完整性（构建期自动校验，不启动 Unity）**
+**数据完整性（构建期自动校验，不启动引擎）**
 
 - [ ] **A1** JSON 可被脚本解析，条目数 = 白名单声明数（MVP = 60）
 - [ ] **A2** 所有 `template` / `category` / `duration.kind` 值在枚举范围内

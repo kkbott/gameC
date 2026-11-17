@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TianziGe.Sim", "Sim\TianziGe.Sim.csproj", "{91B9B2EC-394A-4026-AB31-33BF2D35193C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TianziGe.Sim.Tests", "Tests\TianziGe.Sim.Tests.csproj", "{AC6970FF-16B5-42AA-8C2A-717B301F3ABE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Balance", "Balance\Balance.csproj", "{67456E98-DA37-496C-B001-444359FBD414}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{91B9B2EC-394A-4026-AB31-33BF2D35193C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91B9B2EC-394A-4026-AB31-33BF2D35193C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91B9B2EC-394A-4026-AB31-33BF2D35193C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91B9B2EC-394A-4026-AB31-33BF2D35193C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC6970FF-16B5-42AA-8C2A-717B301F3ABE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC6970FF-16B5-42AA-8C2A-717B301F3ABE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC6970FF-16B5-42AA-8C2A-717B301F3ABE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC6970FF-16B5-42AA-8C2A-717B301F3ABE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67456E98-DA37-496C-B001-444359FBD414}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67456E98-DA37-496C-B001-444359FBD414}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67456E98-DA37-496C-B001-444359FBD414}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67456E98-DA37-496C-B001-444359FBD414}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

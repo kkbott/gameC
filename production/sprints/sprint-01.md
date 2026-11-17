@@ -23,8 +23,8 @@
 
 | ✅ 在范围内 | ❌ 不在范围内 |
 | --- | --- |
-| Unity 工程 + Sim/View 分层骨架 | 完整美术资源、动画 |
-| 三项技术验证（CJK / Addressables / Steamworks） | Steam 商店页、预告片 |
+| Godot 工程 + Sim/View 分层骨架 | 完整美术资源、动画 |
+| 三项技术验证（CJK / 数据打包 / Steam） | Steam 商店页、预告片 |
 | 50 字表导入 + 构建期校验脚本 | 300 字内容生产 |
 | 3 块田 + 手牌 + 合字校验 + 字效 | 祟夜、祟气、村民、字灵 |
 | 1 回合循环（可重复） | 四季、季末结算、存档 |
@@ -40,12 +40,12 @@
 
 | ID | 任务 | 引用 | 验收 | 估 |
 | --- | --- | --- | --- | --- |
-| **T1** | 建 Unity 工程（Universal 2D + Input System），分层 `TianziGe.Sim` / `TianziGe.View` | ADR-001/003 | `Sim` 程序集不引用 UnityEngine，编译通过 | 0.5d |
-| **T2** | **CJK 字体验证**：思源宋体子集 + TMP 动态 SDF，渲染 50 个目标字 | P4 A3（最高风险） | 50 字全渲染无缺字、无糊，图集 ≤2 页 | **1.5d** |
-| **T3** | Addressables 2.x 验证：字表 JSON → SO 导入 → 运行时加载 | ADR-002 | 包版本与 API 确认，导入器可跑 | 1d |
-| **T4** | Steamworks C# 绑定验证：初始化 + 一个成就上报 | 门检查关注项 2 | 在 Editor 外构建中成功上报一次成就 | 1d |
+| **T1** ✅ | 建 **Godot 4.7.2 .NET** 工程，分层 `Sim/`（纯 C#）/ `Client/`（View） | ADR-001/004 | `Sim` 不引用 Godot，`dotnet test` 通过；Godot 冒烟可启动 | 0.5d |
+| **T2** | **CJK 字体验证**：思源宋体子集 + Godot 动态字形 / 竖排，渲染 50 个目标字 | P4 A3（最高风险） | 50 字全渲染无缺字、无糊，图集 ≤4 页 | **1.5d** |
+| **T3** | 数据管线：JSON → Sim 解析 → Godot `FileAccess` → 导出包含 | ADR-002 | 开发 / 导出都能读到 50 条，JSON 进包 | 1d |
+| **T4** | Steam 绑定验证（GodotSteam / Steamworks.NET）：初始化 + 一个成就上报 | 门检查关注项 | 在导出构建中成功上报一次成就 | 1–2d |
 
-> **T2 是本月最重要的技术任务。** 若 TMP 在 6000.6 下动态图集不可用，需在周内决策：换 UI Toolkit 文本，或改用预生成图集分页——**本周必须给出结论**。
+> **T2 是本月最重要的技术任务。** 若 Godot 4.7.2 的动态字形 / 竖排不可用，需在周内决策：预生成子集图集，或自定义逐字绘制——**本周必须给出结论**。
 
 ### 阶段 B · 骨架与数据（第 2–3 周）
 
@@ -53,11 +53,11 @@
 | --- | --- | --- | --- | --- |
 | **T5** | `FarmState` + `ICommand` + `Execute` 骨架 | F3 R1–R5 / F2 R2–R3 | F3 A1、A3、A4（clone 隔离）通过 | 2d |
 | **T6** | 确定性 RNG + `ReplayHash` | F2 R4/R6 | F2 A2、A3（同序列同 hash）通过 | 1d |
-| **T7** | 字表导入器 + **构建期校验脚本** | F1 A1–A8 | 50 条全过；故意造一个重复对能报错 | 2d |
+| **T7** | 字表解析器 + **构建期校验脚本** | F1 A1–A8 | 50 条全过；故意造一个重复对能报错 | 2d |
 | **T8** | `C3` 合字校验：松手即判 + 祟字生成 + 拒绝事件 | C3 R2–R4 | C3 A1、A2、A4、A5 通过 | 2d |
 | **T9** | `C1` 田格（3 块）+ `C2` 手牌（容量 5，成功补 2/失败不补） | C1 / C2 | C1 A1–A3；C2 A1–A3 通过 | 2d |
 | **T10** | `C4` 13 模板中先实现 6 个（single/all_ripen、adjacent_boost、sustained、fallow、will_boost 的推导） | C4 R3 | C4 A1–A4 通过 | 2d |
-| **T11** | M4 控制台项目：读 JSON、跑 1000 次发牌、输出失败率 | M4 A1、A2 | 不引用 Unity 编译通过；实测失败率输出 | 1.5d |
+| **T11** | M4 控制台项目：读 JSON、跑 1000 次发牌、输出失败率 | M4 A1、A2 | 不引用 Godot 编译通过；实测失败率输出 | 1.5d |
 
 ### 阶段 C · 可玩回路（第 4 周）
 
@@ -78,7 +78,7 @@
 | --- | --- |
 | 祟气 / 祟夜 | F2 结算顺序的第 3–5 步留空实现（no-op），接口先写 |
 | 存档 | `FarmState` 从第一天就可 JSON 序列化（T5 顺带），但不做原子写入 |
-| 手柄 | Input System 的 InputAction 从一开始就建，但只绑键鼠 |
+| 手柄 | Godot `InputMap` 动作从一开始就建，但只绑键鼠 |
 | 字灵 / 村民 | `VillageState.Count = 5` 常量桩，无成员列表 |
 
 ---
@@ -88,7 +88,7 @@
 | 风险 | 概率 | 应对 |
 | --- | --- | --- |
 | **T2 CJK 图集不可用** | 中 | 周内决策换 UI Toolkit 或预生成图集；**不拖到下周** |
-| 架构走偏（把状态写进 MonoBehaviour） | 中 | T1 的第一件事就是建 `Sim` 程序集并禁用 UnityEngine 引用；其余任务不许绕过 |
+| 架构走偏（把状态写进 Godot `Node`） | 中 | T1 已经建好 `Sim` 并禁止 Godot 引用；其余任务不许绕过 |
 | 合字不好玩 | 中 | 这就是本 sprint 要回答的问题——**答案是"不好玩"也是成功的产出** |
 | 范围膨胀（想做祟夜） | 高 | 祟夜不在本月范围；想做的冲动记为 Sprint 02 待办 |
 | 拖拽手感调太久 | 中 | T12 卡 2 天上限，先用临时反馈（方块高亮）验证判定逻辑，手感留到 Sprint 02 |
@@ -98,10 +98,12 @@
 ## 6. 交付物
 
 ```
-Client/Assets/…                    Unity 工程（分层已建）
-Data/char-table.json               已有（50 条）
-Data/component-registry.json       已有（26 部件）
-Tools/validate-chartable           JSON 构建期校验脚本
+Client/                            Godot 工程（View；已建）
+Sim/                               纯 C# 规则层（已建最小版）
+Tests/                             Sim 层 NUnit 测试
+Client/Data/char-table.json               已有（50 条）
+Client/Data/component-registry.json       已有（26 部件）
+Tools/validate-chartable           JSON 构建期校验脚本（T-007）
 Balance/                           M4 控制台项目
 docs/tech-validation.md            三项技术验证结论（T2/T3/T4）
 production/sprints/sprint-01-report.md   第 4 周末的"好不好玩"结论
@@ -111,7 +113,7 @@ production/sprints/sprint-01-report.md   第 4 周末的"好不好玩"结论
 
 ## 7. 定义完成（DoD）
 
-- [ ] `TianziGe.Sim` 无 UnityEngine 引用（静态检查）
+- [ ] `TianziGe.Sim` 无 Godot 引用（静态检查 + `dotnet test`）
 - [ ] 三项技术验证全部有**书面结论**（可用 / 不可用 / 替代方案）
 - [ ] 50 字表通过构建期校验（F1 A1–A8）
 - [ ] 能连续玩 20 分钟不崩，回合循环可重复
@@ -135,3 +137,4 @@ production/sprints/sprint-01-report.md   第 4 周末的"好不好玩"结论
 | 日期 | 变更 |
 | --- | --- |
 | 2026-11-17 | 创建：4 周可行性原型冲刺；技术验证优先；祟夜/祟气刻意排除在外 |
+| 2026-11-17 | 引擎由 Unity 切换为 Godot 4.7.2（.NET）；T1 已完成，T2/T3/T4 改为字体 / 数据打包 / Steam；任务编号与验收结构不变 |

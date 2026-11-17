@@ -32,7 +32,7 @@ cp production/tasks/TEMPLATE.md production/tasks/T-002.md
 | 检查 | 合格 |
 | --- | --- |
 | 验证命令真的跑了 | 任务文件里有实际输出（不是"应该通过"） |
-| 铁律没被破坏 | `TianziGe.Sim` 无 `using UnityEngine`；无直接写状态 |
+| 铁律没被破坏 | `TianziGe.Sim` 无 `using Godot` / Godot 程序集引用；无直接写状态 |
 | 状态与缺口都记了 | `systems-index.md` 状态更新；`## 遗留` 段非空或明确写"无" |
 
 ---
@@ -70,11 +70,12 @@ production/tasks/T-002.md      ← Sprint 01 的 T2
 
 | 任务 | 内容 | 状态 |
 | --- | --- | --- |
-| [T-001](T-001.md) | 建 Unity 工程 + Sim/View 分层 | 待发布 |
-| [T-002](T-002.md) | CJK 字体验证（**最高风险**） | 待发布 |
-| T-003 | Addressables 2.x 验证 | 未创建 |
-| T-004 | Steamworks 绑定验证 | 未创建 |
-| T-005 | `FarmState` + `ICommand` 骨架 | 未创建 |
+| [T-001](T-001.md) | 建 Godot 工程 + Sim/View 分层 | **已完成（2026-11-17）** |
+| [T-002](T-002.md) | CJK 字体 / 竖排验证（**最高风险**） | 待发布 |
+| [T-003](T-003.md) | 数据管线：JSON → Sim → Godot 导出 | 待发布 |
+| [T-004](T-004.md) | Steam 集成（GodotSteam / Steamworks.NET） | 待发布 |
+| T-005 | `FarmState` + `ICommand` 骨架 | 待创建（T-001 已建最小版） |
 | … | 见 `sprint-01.md` | |
 
 > T-002 是本月唯一"错了要返工整个 UI 层"的任务，建议在 T-001 后**立刻**发。
+> T-003 / T-004 都需要 T-001 的工程；T-004 还需要人类提供 AppID / 测试账号。
