@@ -27,21 +27,20 @@ public static class Program
         {
             var seed = (ulong)seedBase + (ulong)i + 1;
             var state = new FarmState { RngState = seed };
-            var context = new StepContext(new DeterministicRng(state.RngState));
+            var session = new GameSession(state);
             var command = new DemoGainMoneyCommand(3);
 
-            var rejection = command.Validate(state, context);
-            if (rejection is not null)
+            StepResult result = session.Execute(command);
+            if (!result.Applied)
             {
-                Console.Error.WriteLine($"种子 {seed}: 命令被拒绝 ({rejection.Value.Code})。");
+                string detail = result.Rejected
+                    ? result.Rejection!.Value.Code
+                    : result.Failure?.Message ?? result.Status.ToString();
+                Console.Error.WriteLine($"种子 {seed}: 命令失败 ({result.Status}: {detail})。");
                 return 1;
             }
 
-            command.Apply(state, context);
-            state.RngState = context.Rng.State;
-            state.TotalSteps++;
-
-            finalHash = Mix(finalHash, state);
+            finalHash = Mix(finalHash, FarmStateHash.Compute(state));
         }
 
         Console.WriteLine($"Balance skeleton OK: runs={runs}, seed_base={seedBase}, final_hash=0x{finalHash:X16}");
@@ -86,18 +85,6 @@ public static class Program
 
     private const ulong FnvOffsetBasis = 14695981039346656037UL;
     private const ulong FnvPrime = 1099511628211UL;
-
-    private static ulong Mix(ulong hash, FarmState state)
-    {
-        hash = Mix(hash, (ulong)state.SaveVersion);
-        hash = Mix(hash, state.RngState);
-        hash = Mix(hash, (ulong)state.SeasonIndex);
-        hash = Mix(hash, (ulong)state.RoundIndex);
-        hash = Mix(hash, (ulong)state.TotalSteps);
-        hash = Mix(hash, (ulong)state.Money);
-        hash = Mix(hash, (ulong)state.QiOfSui);
-        return hash;
-    }
 
     private static ulong Mix(ulong hash, ulong value)
     {

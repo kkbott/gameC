@@ -1,6 +1,6 @@
 # Sprint 01 · 可行性原型（第 1 个月）
 
-> **状态**: 执行中（T1 已完成，2026-11-17）
+> **状态**: 执行中（T1–T5 已完成，2026-11-18）
 > **周期**: 4 周（第 1 个月）
 > **目标**: 回答**唯一一个问题**——「合字本身体验好不好？」
 > **依据**: `design/gdd/systems-index.md` 设计顺序 1–6 + 技术验证清单
@@ -51,7 +51,7 @@
 
 | ID | 任务 | 引用 | 验收 | 估 |
 | --- | --- | --- | --- | --- |
-| **T5** | `FarmState` + `ICommand` + `Execute` 骨架 | F3 R1–R5 / F2 R2–R3 | F3 A1、A3、A4（clone 隔离）通过 | 2d |
+| **T5** ✅ | `FarmState` + `ICommand` + `Execute` 骨架 | F3 R1–R5 / F2 R2–R3 | F3 A1、A3、A4（clone 隔离）通过 | 2d |
 | **T6** | 确定性 RNG + `ReplayHash` | F2 R4/R6 | F2 A2、A3（同序列同 hash）通过 | 1d |
 | **T7** | 字表解析器 + **构建期校验脚本** | F1 A1–A8 | 50 条全过；故意造一个重复对能报错 | 2d |
 | **T8** | `C3` 合字校验：松手即判 + 祟字生成 + 拒绝事件 | C3 R2–R4 | C3 A1、A2、A4、A5 通过 | 2d |
@@ -139,3 +139,4 @@ production/sprints/sprint-01-report.md   第 4 周末的"好不好玩"结论
 | 2026-11-17 | 创建：4 周可行性原型冲刺；技术验证优先；祟夜/祟气刻意排除在外 |
 | 2026-11-17 | 引擎由 Unity 切换为 Godot 4.7.2（.NET）；T1 已完成，T2/T3/T4 改为字体 / 数据打包 / Steam；任务编号与验收结构不变 |
 | 2026-11-18 | T2 完成；T3 完成（macOS `.app` 与 Windows PCK 均读到 50/26）；T4 技术链路完成（编辑器与 macOS 导出构建均成就 false→true，公共测试 AppID；产品 AppID 待补） |
+| 2026-11-18 | T5 完成：`FarmState` schema v1 + 两阶段 `Execute`（原子回滚）+ canonical JSON / FNV-1a 状态 hash；F3-A1/A3/A4 通过（`dotnet test` 46/46） |

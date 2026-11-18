@@ -71,11 +71,11 @@ production/tasks/T-002.md      ← Sprint 01 的 T2
 | 任务 | 内容 | 状态 |
 | --- | --- | --- |
 | [T-001](T-001.md) | 建 Godot 工程 + Sim/View 分层 | **已完成（2026-11-17）** |
-| [T-002](T-002.md) | CJK 字体 / 竖排验证（**最高风险**） | 待发布 |
-| [T-003](T-003.md) | 数据管线：JSON → Sim → Godot 导出 | 待发布 |
-| [T-004](T-004.md) | Steam 集成（GodotSteam / Steamworks.NET） | 待发布 |
-| T-005 | `FarmState` + `ICommand` 骨架 | 待创建（T-001 已建最小版） |
+| [T-002](T-002.md) | CJK 字体 / 竖排验证（**最高风险**） | **已完成（2026-11-17）** |
+| [T-003](T-003.md) | 数据管线：JSON → Sim → Godot 导出 | **已完成（2026-11-18）** |
+| [T-004](T-004.md) | Steam 集成（GodotSteam / Steamworks.NET） | **已完成（技术链路，2026-11-18；产品 AppID 待补）** |
+| [T-005](T-005.md) | `FarmState` + `ICommand` + `Execute` 骨架 | **已完成（2026-11-18）** |
 | … | 见 `sprint-01.md` | |
 
-> T-002 是本月唯一"错了要返工整个 UI 层"的任务，建议在 T-001 后**立刻**发。
-> T-003 / T-004 都需要 T-001 的工程；T-004 还需要人类提供 AppID / 测试账号。
+> T-002–T-005 均已完成，验证记录见各自任务文件；T-002 / T-003 / T-004 的技术结论汇总在 `docs/tech-validation.md`。
+> T-004 的产品 AppID 仍需人类提供，技术链路已用公共测试 AppID 验证。

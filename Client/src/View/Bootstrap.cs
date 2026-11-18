@@ -36,18 +36,20 @@ public partial class Bootstrap : Node
         }
 
         var state = new FarmState();
-        var context = new StepContext(new DeterministicRng(1));
+        var session = new GameSession(state);
         var command = new BootProbeCommand();
 
-        var rejection = command.Validate(state, context);
-        if (rejection is not null)
+        StepResult result = session.Execute(command);
+        if (!result.Applied)
         {
-            GD.PushError($"Boot probe rejected: {rejection.Value.Code}");
+            string detail = result.Rejected
+                ? result.Rejection!.Value.Code
+                : result.Failure?.Message ?? result.Status.ToString();
+            GD.PushError($"Boot probe failed ({result.Status}): {detail}");
             GetTree().Quit(1);
             return;
         }
 
-        command.Apply(state, context);
         GD.Print($"TianziGe boot OK: sim={typeof(FarmState).Assembly.GetName().Name} money={state.Money}");
 
         if (System.Array.IndexOf(OS.GetCmdlineUserArgs(), "--boot-probe") >= 0)
